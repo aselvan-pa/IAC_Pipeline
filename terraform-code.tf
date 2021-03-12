@@ -3,7 +3,7 @@ data "aws_region" "current" {}
 
 # KMS Key for cloudwatch encryption
 resource "aws_kms_key" "cloudwatch" {
-  description = "KMS Key for cloudwatch encryption"
+  description = "KMS Key for ${var.name} cloudwatch encryption"
   deletion_window_in_days = 30
   enable_key_rotation = true
   policy = data.aws_iam_policy_document.cloudwatch_kms_policy.json
@@ -39,7 +39,7 @@ data "aws_iam_policy_document" "cloudwatch_kms_policy" {
     condition {
       test = "ArnEquals"
       variable = "kms:EncryptionContext:aws:logs:arn"
-      values = ["Testing"]
+      values = ["arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.account.account_id}:log-group:${var.name}"]
     }
     resources = ["*"]
   }
