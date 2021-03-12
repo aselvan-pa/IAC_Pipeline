@@ -1,5 +1,7 @@
 data "aws_caller_identity" "account" {}
-data "aws_region" "current" {}
+data "aws_region" "current" {
+  name = "test"
+  }
 
 # KMS Key for cloudwatch encryption
 resource "aws_kms_key" "cloudwatch" {
