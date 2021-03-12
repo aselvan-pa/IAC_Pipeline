@@ -39,7 +39,7 @@ data "aws_iam_policy_document" "cloudwatch_kms_policy" {
     condition {
       test = "ArnEquals"
       variable = "kms:EncryptionContext:aws:logs:arn"
-      values = "Testing"
+      values = ["Testing"]
     }
     resources = ["*"]
   }
